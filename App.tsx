@@ -1,9 +1,10 @@
-import { Text, View } from 'react-native';
+import { type ReactElement } from 'react'
+import { Text, View } from 'react-native'
 
-export default function App() {
+export default function App (): ReactElement {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       <Text>Hello</Text>
     </View>
-  );
+  )
 }
