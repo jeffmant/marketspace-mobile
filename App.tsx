@@ -1,6 +1,7 @@
+import { Karla_400Regular, Karla_700Bold, useFonts } from '@expo-google-fonts/karla'
+import { Signup } from '@screens/auth/Signup'
+import { NativeBaseProvider, Text } from 'native-base'
 import { type ReactElement } from 'react'
-import { NativeBaseProvider, Center, Heading, Text } from 'native-base'
-import { useFonts, Karla_400Regular, Karla_700Bold } from '@expo-google-fonts/karla'
 
 export default function App (): ReactElement {
   const [fontsLoaded] = useFonts({
@@ -10,18 +11,12 @@ export default function App (): ReactElement {
 
   return (
     <NativeBaseProvider>
-      <Center flex={1}>
-        {
-          fontsLoaded
-            ? <Heading
-                fontFamily="heading"
-                fontSize="xl">
-                  Hello
-              </Heading>
-            : <Text>Loading</Text>
-        }
-      </Center>
+      {
+        fontsLoaded
+          ? <Signup />
+          : <Text>Loading</Text>
+      }
     </NativeBaseProvider>
 
   )
-}
+};
