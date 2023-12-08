@@ -1,10 +1,18 @@
 import { Button } from '@components/Button'
 import { Input } from '@components/Input'
 import { Logo } from '@components/Logo'
+import { useNavigation } from '@react-navigation/native'
+import { type AuthNavigatorRoutesprops } from '@routes/auth.routes'
 import { Center, Heading, ScrollView, Text, VStack } from 'native-base'
 import { type ReactElement } from 'react'
 
 export function Signin (): ReactElement {
+  const { navigate } = useNavigation<AuthNavigatorRoutesprops>()
+
+  function handleGoToSignup (): void {
+    navigate('signup')
+  }
+
   return (
     <ScrollView
       contentContainerStyle={{
@@ -58,7 +66,7 @@ export function Signin (): ReactElement {
           />
         </Center>
       </VStack>
-      <VStack flex={1} bg="white" px={10} pt={12}>
+      <VStack flex={1} px={10} pt={12}>
         <Center>
           <Text
             fontFamily="body"
@@ -72,6 +80,7 @@ export function Signin (): ReactElement {
             mt={4}
             title="Criar uma conta"
             variant='secondary'
+            onPress={handleGoToSignup}
           />
         </Center>
       </VStack>

@@ -1,11 +1,19 @@
 import { Button } from '@components/Button'
 import { Input } from '@components/Input'
 import { Logo } from '@components/Logo'
+import { useNavigation } from '@react-navigation/native'
+import { type AuthNavigatorRoutesprops } from '@routes/auth.routes'
 import { Avatar, Center, Heading, IconButton, ScrollView, Text, VStack } from 'native-base'
 import { PencilSimpleLine, User } from 'phosphor-react-native'
 import { type ReactElement } from 'react'
 
 export function Signup (): ReactElement {
+  const { navigate } = useNavigation<AuthNavigatorRoutesprops>()
+
+  function handleGoToSignin (): void {
+    navigate('signin')
+  }
+
   return (
     <ScrollView
       flex={1}
@@ -85,6 +93,7 @@ export function Signup (): ReactElement {
             mt={1}
             title="Ir para o login"
             variant='secondary'
+            onPress={handleGoToSignin}
           />
         </Center>
       </VStack>
