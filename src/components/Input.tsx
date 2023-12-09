@@ -28,7 +28,7 @@ export function Input ({ errorMessage, isInvalid, ...rest }: InputProps): ReactE
         }}
         {...rest}
       />
-        <FormControl.ErrorMessage _text={{ color: 'red.light' }}>
+        <FormControl.ErrorMessage _text={{ color: 'red.500' }}>
           {errorMessage}
         </FormControl.ErrorMessage>
     </FormControl>

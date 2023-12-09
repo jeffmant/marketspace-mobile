@@ -25,6 +25,9 @@ export function Button ({ title, variant = 'primary', icon, ...rest }: ButtonPro
             ? 'gray.300'
             : 'gray.700'
       }
+      _loading={{
+        color: variant === 'secondary' ? 'gray.700' : 'gray.100'
+      }}
       {...rest}
     >
       <Text
