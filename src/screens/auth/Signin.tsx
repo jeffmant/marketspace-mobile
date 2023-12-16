@@ -22,7 +22,7 @@ const signinValidationSchema = Yup.object({
 export function Signin (): ReactElement {
   const { navigate } = useNavigation<AuthNavigatorRoutesprops>()
 
-  const { control, handleSubmit, formState: { errors, isValid } } = useForm<SigninDTO>({
+  const { control, handleSubmit, formState: { errors, isValid }, reset } = useForm<SigninDTO>({
     resolver: yupResolver(signinValidationSchema)
   })
 
@@ -33,6 +33,10 @@ export function Signin (): ReactElement {
     setTimeout(() => {
       setIsLoading(false)
       console.log(data)
+      reset({
+        email: '',
+        password: ''
+      }, { keepErrors: false })
     }, 3000)
   }
 
