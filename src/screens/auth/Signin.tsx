@@ -1,18 +1,16 @@
 import { Button } from '@components/Button'
 import { Input } from '@components/Input'
 import { Logo } from '@components/Logo'
+import { type SigninDTO } from '@dtos/signin.dto'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useAuth } from '@hooks/auth.hook'
 import { useNavigation } from '@react-navigation/native'
 import { type AuthNavigatorRoutesprops } from '@routes/auth.routes'
-import { Center, Heading, ScrollView, Text, VStack } from 'native-base'
+import { AppError } from '@utils/errors/app.error'
+import { Center, Heading, ScrollView, Text, VStack, useToast } from 'native-base'
 import { useState, type ReactElement } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import * as Yup from 'yup'
-
-type SigninDTO = {
-  email: string
-  password: string
-}
 
 const signinValidationSchema = Yup.object({
   email: Yup.string().required('Insira o email').email('Email inválido'),
@@ -26,18 +24,28 @@ export function Signin (): ReactElement {
     resolver: yupResolver(signinValidationSchema)
   })
 
+  const { signin } = useAuth()
+  const toast = useToast()
+
   const [isLoading, setIsLoading] = useState(false)
 
-  const onSubmit = (data: SigninDTO): void => {
-    setIsLoading(true)
-    setTimeout(() => {
+  const onSubmit = async (signinDTO: SigninDTO): Promise<void> => {
+    try {
+      setIsLoading(true)
+      await signin(signinDTO)
+    } catch (error) {
+      toast.show({
+        title: error instanceof AppError ? error.message : 'Algo deu errado',
+        placement: 'top',
+        color: 'red.500'
+      })
+    } finally {
       setIsLoading(false)
-      console.log(data)
       reset({
         email: '',
         password: ''
       }, { keepErrors: false })
-    }, 3000)
+    }
   }
 
   function handleGoToSignup (): void {
