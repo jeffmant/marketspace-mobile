@@ -1,3 +1,4 @@
+import { AuthContextProvider } from '@contexts/auth.context'
 import { Karla_400Regular, Karla_700Bold, useFonts } from '@expo-google-fonts/karla'
 import { Routes } from '@routes/index'
 import { NativeBaseProvider, Text } from 'native-base'
@@ -11,11 +12,13 @@ export default function App (): ReactElement {
 
   return (
     <NativeBaseProvider>
-      {
-        fontsLoaded
-          ? <Routes />
-          : <Text>Loading</Text>
-      }
+      <AuthContextProvider>
+        {
+          fontsLoaded
+            ? <Routes />
+            : <Text>Loading</Text>
+        }
+      </AuthContextProvider>
     </NativeBaseProvider>
 
   )
