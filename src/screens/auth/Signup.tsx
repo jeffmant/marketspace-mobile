@@ -1,6 +1,7 @@
 import { Button } from '@components/Button'
 import { Input } from '@components/Input'
 import { Logo } from '@components/Logo'
+import { type SignupDTO } from '@dtos/signup.dto'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useNavigation } from '@react-navigation/native'
 import { type AuthNavigatorRoutesprops } from '@routes/auth.routes'
@@ -9,14 +10,6 @@ import { PencilSimpleLine, User } from 'phosphor-react-native'
 import { useState, type ReactElement } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import * as Yup from 'yup'
-
-type SignupDTO = {
-  name: string
-  email: string
-  phone: string
-  password: string
-  confirmPassword: string
-}
 
 const signupValidationSchema = Yup.object({
   name: Yup.string().required('Insira o seu nome'),
