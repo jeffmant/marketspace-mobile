@@ -10,6 +10,7 @@ export type AuthContextDataProps = {
   user: UserDTO
   isLoading: boolean
   signin: (signinDTO: SigninDTO) => Promise<void>
+  signup: (formData: FormData) => Promise<void>
   signout: () => Promise<void>
 }
 
@@ -36,6 +37,23 @@ export function AuthContextProvider ({ children }: { children: ReactNode }): Rea
     }
   }
 
+  async function signup (formData: FormData): Promise<void> {
+    try {
+      setIsLoading(true)
+
+      await api.post('/users', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+    } catch (error: any) {
+      console.log(error)
+      throw new AppError(error?.message || 'Não foi possível cadastrar')
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
   async function signout (): Promise<void> {
     try {
       setIsLoading(true)
@@ -48,7 +66,7 @@ export function AuthContextProvider ({ children }: { children: ReactNode }): Rea
   }
 
   return (
-    <AuthContext.Provider value={{ user, isLoading, signin, signout }}>
+    <AuthContext.Provider value={{ user, isLoading, signin, signup, signout }}>
       { children }
     </AuthContext.Provider>
   )
